@@ -74,3 +74,8 @@ Authorization Code 방식에서 client 를 Browser 및 Javascript로 구현할 �
 ## 5. OAuth 2.0 Provider.
 ### 5.1. Authorization Service.
 ### 5.2. Resource Service.
+
+
+
+참고문헌
+<li>[RF6749 - The OAuth 2.0 Authorization Framework ](https://tools.ietf.org/html/rfc6749#section-4.1)</li>  
