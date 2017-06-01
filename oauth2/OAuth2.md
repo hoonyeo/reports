@@ -70,6 +70,7 @@ Authorization Code 방식에서 client 를 Browser 및 Javascript로 구현할 �
 어플리케이션 이 Confidential Client일 때 id와 secret을 가지고 인증하는 방식이다.
 로그인시에 API에 POST로 grant_type=client_credentials 라고 넘긴다.
 </li>  
-## 4. OAuth 2.0 Provider.
-### 4.1. Authorization Service.
-### 4.2. Resource Service.
+
+## 5. OAuth 2.0 Provider.
+### 5.1. Authorization Service.
+### 5.2. Resource Service.
