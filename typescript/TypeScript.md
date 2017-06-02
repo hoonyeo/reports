@@ -80,3 +80,62 @@ function warnUser(): void {
     alert("This is my warning message");
 }
 ```
+
+### Null And Undefined
+
+when using the `--strictNullChecks` flag, `null` and `undefined` are only assignable to void and their respective types. This helps avoid many common errors. In cases where you want to pass in either a `string` or `null` or `undefined`
+
+>As a note: we encourage the use of --strictNullChecks when possible, but for the purposes of this handbook, we will assume it is turned off.  
+
+without --strictNullChecks option.
+```JavaScript
+let m: Object = undefined; // ok
+let n: Object = null; // ok
+```
+with --strictNullChecks option.
+```JavaScript
+let m: Object = undefined; // Any.ts(15,5): error TS2322: Type 'undefined' is not assignable to type 'Object'.
+let n: Object = null; // Any.ts(16,5): error TS2322: Type 'null' is not assignable to type 'Object'.
+```
+
+### Never
+The `Never` type represents the type of values that never occur.
+
+```JavaScript
+// Function returning never must have unreachable end point
+function error(message: string): never {
+    throw new Error(message);
+}
+
+// Inferred return type is never
+function fail() {
+    return error("Something failed");
+}
+
+// Function returning never must have unreachable end point
+function infiniteLoop(): never {
+    while (true) {
+    }
+}
+```
+
+### Type Assertions
+
+Type assertions are a way to tell the compiler “trust me, I know what I’m doing.” A type assertion is like a type cast in other languages, but performs no special checking or restructuring of data. It has no runtime impact, and is used purely by the compiler.
+
+Type assertions have two forms. One is the “angle-bracket” syntax:
+
+```Javascript
+let someValue: any = "this is a string";
+
+let strLength: number = (<string>someValue).length;
+```
+And the other is the as-syntax:
+
+```JavaScript
+let someValue: any = "this is a string";
+
+let strLength: number = (someValue as string).length;
+```
+
+The two samples are equivalent. Using one over the other is mostly a choice of preference; however, when using TypeScript with JSX, only `as-style` assertions are allowed.
