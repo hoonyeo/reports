@@ -139,3 +139,6 @@ let strLength: number = (someValue as string).length;
 ```
 
 The two samples are equivalent. Using one over the other is mostly a choice of preference; however, when using TypeScript with JSX, only `as-style` assertions are allowed.
+
+
+## <span style="color:#a71d5d">let</span> keyword
