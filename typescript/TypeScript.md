@@ -61,7 +61,7 @@ notSure.toFixed(); // okay, toFixed exists (but the compiler doesn't check)
 let prettySure: Object = 4;
 prettySure.toFixed(); // Error: Property 'toFixed' doesn't exist on type 'Object'.
 ```
-> opt-in : 정보를 이용하기 이전에 미리 동의를 얻어야 한다는 것
+> opt-in : 정보를 이용하기 이전에 미리 동의를 얻어야 한다는 것  
 > opt-out : 동의 절차가 없이 일단 이용자의 정보를 처리하는 것
 
 다른 타입과 함께 사용하여 전혀다른 타입으로 사용가능.  
@@ -70,4 +70,13 @@ prettySure.toFixed(); // Error: Property 'toFixed' doesn't exist on type 'Object
 let list: any[] = [1, true, "free"];
 
 list[1] = 100;
+```
+
+### Void
+`any` 와 유사하며, 그 어떤 타입도 갖고 있지 않는 상태.  
+주로 return 값을 갖지 않는 function 을 정의할 때 사용.
+```JavaScript
+function warnUser(): void {
+    alert("This is my warning message");
+}
 ```
