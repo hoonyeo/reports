@@ -7,11 +7,11 @@
 
 ## Why Type Script?
 
->We love TypeScript for many things… With TypeScript, several of our team members have said things like `I now actually understand most of our own code!` because they can easily traverse it and understand relationships much better. And we’ve found several bugs via TypeScript’s checks.”
+>We love TypeScript for many things… With TypeScript, several of our team members have said things like I now actually understand most of our own code! because they can easily traverse it and understand relationships much better. And we’ve found several bugs via TypeScript’s checks.”
 >
 >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;— Brad Green, Engineering Director - AngularJS  
 >
->“One of Ionic`s main goals is to make app development as quick and easy as possible, and the tooling support TypeScript gives us with autocompletion, type checking and source documentation really aligns with that.”
+>“One of Ionic's main goals is to make app development as quick and easy as possible, and the tooling support TypeScript gives us with autocompletion, type checking and source documentation really aligns with that.”
 >
 >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;— Tim Lancina, Tooling Developer - Ionic
 
@@ -142,6 +142,90 @@ The two samples are equivalent. Using one over the other is mostly a choice of p
 
 
 ## Variable Declarations
+[see - Chapter 16. Variables: Scopes, Environments, and Closures](http://speakingjs.com/es5/ch16.html)
+
+### Background
+#### Static and Dynamic
+<li>statically(or lexically)</li>
+
+```JavaScript
+// 'f' function 내부에 'g' function을 정적으로 선언.
+function f(){
+    function g(){
+
+    }
+}
+```
+
+> lexical (= static)
+
+<li>Dynamically</li>
+
+```JavaScript
+// 'f' function 호출 시 'g' function이 동적으로 연결됨.
+function g(){
+
+}
+
+function f(){
+    g();
+}
+```
+#### The Scope of a Variable
+<li>The scope of a variable</li>
+
+```JavaScript
+// 변수 'x'의 `direct scope`는 function 'f'
+function f(){
+    var x;
+}
+```
+<li>Lexical scoping</li>
+
+JavaScript의 변수는 `lexical scope` 방식으로 할당.  
+
+> lexical scope (= static scope) - In languages with lexical scope (also called static scope), name resolution depends on the location in the source code and the lexical context, which is defined by where the named variable or function is defined.
+
+<li>Nested scopes</li>
+
+```JavaScript
+function a(arg){
+    function b(){
+        console.log('arg' + arg);
+    }
+    b();
+}
+console.log(a('hello'));
+```
+변수 `arg`는 function 'a'의 scope이지만 function 'b' 에서 참조 가능.  
+Nested scope에서 function 'b'의 scope은 `inner scope` 이고 function 'a'의 scope을 `outer scope`  
+
+nested scoping  
+![nested scoping](http://speakingjs.com/es5/images/spjs_2001.png)
+
+<li>Shadowing</li>
+
+```JavaScript
+var x = "global";
+function f() {
+    var x = "local";
+    console.log(x); // local
+};
+f();
+console.log(x); // global
+```
+function 'f' 에서 global 변수 x는 local 변수 x에 의해 shadowing됨.
+즉, 여러 scope에 동일한 변수 명이 존재할 경우(inner scope와 그것의 nested scope) outer scope의 변수 블록됨.  
+또한, inner scope 의 변수는 outer scope의 변수에 아무런 영향을 끼치지 않음.
+
+#### Variables Are Function-Scoped
+Javascript의 변수는 `function scope`을 사용.
+이와 반대로 TypeScript의 let변수는 `block scope`를 사용.
+
+#### Variable Declarations Are Hoisted
+Javascript의 변수 선언은 `hoist`방식을 따름.
+
+
 ### Variable Declarations
 `let` and `const` are two relatively new types of variable declarations in JavaScript. As we mentioned earlier, `let` is similar to `var` in some respects, but allows users to avoid some of the common “gotchas” that users run into in JavaScript. `const` is an augmentation of `let` in that it prevents re-assignment to a variable.
 
@@ -160,6 +244,7 @@ function f() {
 
     return message;
 }
+return b;
 ```
 and we can also access those same variables within other functions:
 
@@ -168,7 +253,6 @@ function f() {
     var a = 10;
     return function g() {
         var b = a + 1;
-        return b;
     }
 }
 
@@ -196,7 +280,7 @@ function f() {
 f(); // returns '2'
 ```
 
-#### Scoping rules
+##### Scoping rules
 
 `var` declarations have some odd scoping rules for those used to other languages. Take the following example:
 ```JavaScript
@@ -212,7 +296,7 @@ f(true);  // returns '10'
 f(false); // returns 'undefined'
 ```
 
-#### Variable capturing quirks
+##### Variable capturing quirks
 
 Take a quick second to guess what the output of the following snippet is:
 ```JavaScript
