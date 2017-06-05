@@ -400,3 +400,31 @@ function sumMatrix(matrix: number[][]) {
     return sum;
 }
 ```
+
+##### Block-scoped variable capturing
+
+When we first touched on the idea of variable capturing with var declaration, we briefly went into how variables act once captured. To give a better intuition of this, each time a scope is run, it creates an “environment” of variables. That environment and its captured variables can exist even after everything within its scope has finished executing.
+```JavaScript
+function theCityThatAlwaysSleeps() {
+    let getCity;
+
+    if (true) {
+        let city = "Seattle";
+        getCity = function() {
+            return city;
+        }
+    }
+
+    return getCity();
+}
+```
+Because we’ve captured city from within its environment, we’re still able to access it despite the fact that the if block finished executing.
+
+Recall that with our earlier setTimeout example, we ended up needing to use an IIFE to capture the state of a variable for every iteration of the for loop. In effect, what we were doing was creating a new variable environment for our captured variables. That was a bit of a pain, but luckily, you’ll never have to do that again in TypeScript.
+
+let declarations have drastically different behavior when declared as part of a loop. Rather than just introducing a new environment to the loop itself, these declarations sort of create a new scope per iteration. Since this is what we were doing anyway with our IIFE, we can change our old setTimeout example to just use a let declaration.
+```JavaScript
+for (let i = 0; i < 10 ; i++) {
+    setTimeout(function() { console.log(i); }, 100 * i);
+}
+```
