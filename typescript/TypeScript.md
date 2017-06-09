@@ -428,3 +428,91 @@ for (let i = 0; i < 10 ; i++) {
     setTimeout(function() { console.log(i); }, 100 * i);
 }
 ```
+
+## Functions
+### Function Types
+#### Typing the function
+
+Let’s add types to our simple examples from earlier:
+
+```JavaScript
+function add(x: number, y: number): number {
+    return x + y;
+}
+
+let myAdd = function(x: number, y: number): number { return x+y; };
+```
+
+We can add types to each of the parameters and then to the function itself to add a return type. TypeScript can figure the return type out by looking at the return statements, so we can also optionally leave this off in many cases.
+
+#### Writing the function type
+
+Now that we’ve typed the function, let’s write the full type of the function out by looking at the each piece of the function type.
+
+```JavaScript
+let myAdd: (x: number, y: number)=>number =
+    function(x: number, y: number): number { return x+y; };
+```
+
+`function type`을 정의하기위해서 두 가지가 필요하다.  
+첫번째. 파라메터의 변수명과 타입을 기술. 단, 변수이름을 가독성을 돕기위한 것이며 동일할 필요는 없음.
+두번째. 리턴 타입을 기술 => .  
+
+```JavaScript
+let myAdd: (baseValue:number, increment:number) => number =
+    function(x: number, y: number): number { return x + y; };
+```
+
+### this and arrow functions
+
+일반 function 은 invoke 되는 시점에서 변수를 캡처.
+Arrow function 은 define 되는 시점에서 변수를 캡처. 
+
+```JavaScript
+
+let deck = {
+    suits: ["hearts", "spades", "clubs", "diamonds"],
+    cards: Array(52),
+    createCardPicker: function() {
+        return function() {
+            let pickedCard = Math.floor(Math.random() * 52);
+            let pickedSuit = Math.floor(pickedCard / 13);
+
+            return {suit: this.suits[pickedSuit], card: pickedCard % 13};
+        }
+    }
+}
+
+let cardPicker = deck.createCardPicker();
+let pickedCard = cardPicker();
+
+alert("card: " + pickedCard.card + " of " + pickedCard.suit);
+```
+
+Notice that createCardPicker is a function that itself returns a function. If we tried to run the example, we would get an error instead of the expected alert box. This is because the this being used in the function created by createCardPicker will be set to window instead of our deck object. That’s because we call cardPicker() on its own. A top-level non-method syntax call like this will use window for this. (Note: under strict mode, this will be undefined rather than window).
+
+We can fix this by making sure the function is bound to the correct this before we return the function to be used later. This way, regardless of how it’s later used, it will still be able to see the original deck object. To do this, we change the function expression to use the ECMAScript 6 arrow syntax. Arrow functions capture the this where the function is created rather than where it is invoked:
+
+```JavaScript
+let deck = {
+    suits: ["hearts", "spades", "clubs", "diamonds"],
+    cards: Array(52),
+    createCardPicker: function() {
+        // NOTE: the line below is now an arrow function, allowing us to capture 'this' right here
+        return () => {
+            let pickedCard = Math.floor(Math.random() * 52);
+            let pickedSuit = Math.floor(pickedCard / 13);
+
+            return {suit: this.suits[pickedSuit], card: pickedCard % 13};
+        }
+    }
+}
+
+let cardPicker = deck.createCardPicker();
+let pickedCard = cardPicker();
+
+alert("card: " + pickedCard.card + " of " + pickedCard.suit);
+
+```
+
+Even better, TypeScript will warn you when you make this mistake if you pass the --noImplicitThis flag to the compiler. It will point out that this in this.suits[pickedSuit] is of type any
