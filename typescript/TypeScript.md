@@ -466,7 +466,7 @@ let myAdd: (baseValue:number, increment:number) => number =
 ### this and arrow functions
 
 일반 function 은 invoke 되는 시점에서 변수를 캡처.
-Arrow function 은 define 되는 시점에서 변수를 캡처. 
+Arrow function 은 define 되는 시점에서 변수를 캡처.
 
 ```JavaScript
 
@@ -516,3 +516,168 @@ alert("card: " + pickedCard.card + " of " + pickedCard.suit);
 ```
 
 Even better, TypeScript will warn you when you make this mistake if you pass the --noImplicitThis flag to the compiler. It will point out that this in this.suits[pickedSuit] is of type any
+
+## Modules
+### Internal Modules and External Modules
+#### Internal Modules
+##### Implicit Internal Modules
+`t` 변수가 할당되면 `window` 객체의 Global Scope에 변수 a, b 가 할당됨.
+```JavaScript
+class TestClass {  
+    private a = 2;
+    public b = 4;
+};
+var t = new TestClass();  
+```
+
+##### Named Internal Modules
+`Shapes`라는 이름의 Module에 변수가 할당됨.  
+
+```JavaScript
+module Shapes {  
+    export class Rectangle {
+        constructor (
+            public height: number,
+            public width: number) {
+        }
+    }
+}
+// This works!
+var rect = Shapes.Rectangle(10, 4);  
+```
+#### External Modules
+
+The dependency chain itself can be daunting as well as knowing when to load which scripts. This is where using the AMD convention can really help. TypeScript supports AMD using external modules.
+
+```JavaScript
+
+// bootstrapper.ts file
+
+// imports the greeter.ts file as the greeter module
+import gt = module('greeter');  
+export function run() {  
+    var el = document.getElementById('content');
+    var greeter = new gt.Greeter(el);
+    greeter.start();
+}
+
+// greeter.ts file
+
+// exports the entire module
+export class Greeter {  
+    start() {
+         this.timerToken = setInterval(() =>
+             this.span.innerText =
+             new Date().toUTCString(), 500);
+    }
+}
+
+```
+### Introduction
+<li>`Module`은 Global Scope이 아닌 Own Scope을 이용하여 실행됨.</li>
+<li>`Module`에 정의된 변수, 함수, 클래스 등등은 외부의 다른 모듈에서 사용할 수 없음.</li>
+<li>`Export`, `Import` 구문으로 다른 외부 모듈에서 정의한 기능을 사용할 수 있음.</li>
+<li>`Module`의 Import는 `Module Loader`를 사용한다. `Module Loader`는 `Module`을 로드하고 `dependency`를 체크하여 실행하는 역할을 한다.</li>
+
+### Export
+#### Exporting a declaration
+
+`Module`에 정의된 모든 객체 (such as a variable, function, class, type alias, or interface)는 `export` Keyword를 이용하여 Export 할 수 있다.
+
+Validation.ts
+
+```JavaScript
+export interface StringValidator {
+    isAcceptable(s: string): boolean;
+}
+```
+
+ZipCodeValidator.ts
+
+```JavaScript
+export const numberRegexp = /^[0-9]+$/;
+
+export class ZipCodeValidator implements StringValidator {
+    isAcceptable(s: string) {
+        return s.length === 5 && numberRegexp.test(s);
+    }
+}
+```
+
+#### Export statements
+
+`Export`시 rename 가능하다.
+
+```JavaScript
+class ZipCodeValidator implements StringValidator {
+    isAcceptable(s: string) {
+        return s.length === 5 && numberRegexp.test(s);
+    }
+}
+export { ZipCodeValidator };
+export { ZipCodeValidator as mainValidator };
+```
+
+#### Re-exports
+
+다른 `module`을 상속하거나 일부 기능을 노출시킬 수 있다.
+A re-export does not import it locally, or introduce a local variable.
+
+ParseIntBasedZipCodeValidator.ts
+
+```JavaScript
+export class ParseIntBasedZipCodeValidator {
+    isAcceptable(s: string) {
+        return s.length === 5 && parseInt(s).toString() === s;
+    }
+}
+
+// Export original validator but rename it
+export {ZipCodeValidator as RegExpBasedZipCodeValidator} from "./ZipCodeValidator";
+```
+
+`export * from "module" syntax`를 사용하여 정의된 모든 객체들을 노출시킬수 있다.
+
+AllValidators.ts
+
+```JavaScript
+export * from "./StringValidator"; // exports interface 'StringValidator'
+export * from "./LettersOnlyValidator"; // exports class 'LettersOnlyValidator'
+export * from "./ZipCodeValidator";  // exports class 'ZipCodeValidator'
+```
+
+### Import
+Importing is just about as easy as exporting from a module. Importing an exported declaration is done through using one of the import forms below:
+
+#### Import a single export from a module
+
+```JavaScript
+
+import { ZipCodeValidator } from "./ZipCodeValidator";
+
+let myValidator = new ZipCodeValidator();
+```
+
+imports can also be renamed
+
+```JavaScript
+import { ZipCodeValidator as ZCV } from "./ZipCodeValidator";
+let myValidator = new ZCV();
+```
+
+#### Import the entire module into a single variable, and use it to access the module exports
+
+```JavaScript
+import * as validator from "./ZipCodeValidator";
+let myValidator = new validator.ZipCodeValidator();
+```
+
+### Import a module for side-effects only
+
+Though not recommended practice, some modules set up some global state that can be used by other modules. These modules may not have any exports, or the consumer is not interested in any of their exports. To import these modules, use:
+
+```JavaScript
+import "./my-module.js";
+```
+### Default exports
+omitted
