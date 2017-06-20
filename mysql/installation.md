@@ -177,3 +177,40 @@ Status
 ```sh
 $ service mysqld status
 ```
+
+## booting on startup automatically
+```sh
+$ chkconfig mysqld on
+```
+
+# Create Database
+## create database
+```sql
+mysql> CREATE DATABASE IF NOT EXISTS aromit
+    -> DEFAULT CHARACTER SET = utf8;
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+```
+
+## create user
+```sql
+mysql> CREATE USER aromit@avengers.aromit.com IDENTIFIED BY 'aromit';
+Query OK, 0 rows affected (0.00 sec)
+
+
+## grant database to user
+```sql
+mysql> show grants for 'aromit'@'avengers.aromit.com';
++-------------------------------------------------------------------------------------------------------------------------+
+| Grants for aromit@avengers.aromit.com                                                                                   |
++-------------------------------------------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'aromit'@'avengers.aromit.com' IDENTIFIED BY PASSWORD '*764F0248F51F1D830560E262DC444EFD4EEC15BA' |
++-------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> grant all on aromit.* to 'aromit'@'avengers.aromit.com';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>
+```
