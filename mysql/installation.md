@@ -215,3 +215,17 @@ Query OK, 0 rows affected (0.00 sec)
 
 mysql>
 ```
+
+## connection privilege
+privilege as single ip : xxx.xxx.xxx.xxx
+privilege as multi ip : xxx.xxx.%
+
+```sql
+INSERT INTO mysql.user (host,user,password,ssl_cipher,x509_issuer,x509_subject)
+    VALUES ('192.168.0.97','aromit',password('aromit'), '','','');
+
+GRANT ALL PRIVILEGES ON aromit.* TO 'aromit'@'192.168.0.97';
+
+FLUSH PRIVILEGES;
+
+```
