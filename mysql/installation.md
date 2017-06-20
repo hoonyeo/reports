@@ -197,6 +197,7 @@ mysql>
 ```sql
 mysql> CREATE USER aromit@avengers.aromit.com IDENTIFIED BY 'aromit';
 Query OK, 0 rows affected (0.00 sec)
+```
 
 
 ## grant database to user
