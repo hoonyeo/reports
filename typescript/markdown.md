@@ -25,7 +25,7 @@
 # 3. 인용구문
 ## 3.3
 이 내용은 네이버 XXXX 블로그에서 인용한 내용입니다.
-> _네이버 블로그_ - [http://blog.naver.com](htt    t://blog.naver.com)  
+> _네이버 블로그_ - [http://blog.naver.com](http://blog.naver.com)  
 > alskjdlfkjsd  
 > alsdkjfldsjf
 
