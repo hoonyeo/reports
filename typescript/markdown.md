@@ -178,15 +178,12 @@ export class TelFormatter implements PipeTransform {
 
 
 # ul
-<ul>
-	<li>asdfsadf</li>
-	<li>asdfasfas</li>
-	<li>adsfsdafasdf</li>
-</ul>
+- asdf
+- adsfsdafasdf
+- asdfsdaf
 
 # ol
-<ol>
-	<li>asdfsadf</li>
-	<li>asdfasfas</li>
-	<li>adsfsdafasdf</li>
-</ol>
+
+1. ddd
+2. asd
+3. aaa
