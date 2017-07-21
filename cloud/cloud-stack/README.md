@@ -1,7 +1,15 @@
 # CloudStack
  Apache CloudStack is a top-level project of the Apache Software Foundation (ASF). The project develops open source software for deploying public and private `Infrastructure-as-a-Service (IaaS)` clouds.  
 
-CloudStack provides an open and flexible cloud orchestration platform to deliver reliable and scalable private and public clouds
+CloudStack provides an open and flexible cloud orchestration platform to deliver reliable and scalable private and public clouds  
+
+## 시작하기전에
+
+- IaaS : Infrastructure-as-a-Service
+- PaaS : Platform-as-a-Service
+- SaaS : Service-as-a-Service
+
+![클라우드 서비스 방식](http://ncc.phinf.naver.net/20160713_127/1468377668993GdoYV_PNG/03.png?type=w646)
 
 ## Concepts and Terminology
 ### What is Apache CloudStack?
