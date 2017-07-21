@@ -40,4 +40,24 @@ With CloudStack you can :
 >Xenserver : Open source Virtualization. ([see](https://xenserver.org))  
 >&nbsp;&nbsp;&nbsp; Commercial support for XenServer is available from Citrix.
 >
->Xen Project : The mission of the Xen Project is to focus upon the development and support of an open source hypervisor and related components, developed and designed to run with the Linux platform. ([see](https://www.xenproject.org))
+>Xen Project : The mission of the Xen Project is to focus upon the development and support of an open source hypervisor and related components, developed and designed to run with the Linux platform. ([see](https://www.xenproject.org))  
+
+#### Massively Scalable Infrastructure Management
+CloudStack can manage tens of thousands of physical servers installed in geographically distributed datacenters. The management server scales near-linearly eliminating the need for cluster-level management servers. Maintenance or other outages of the management server can occur without affecting the virtual machines running in the cloud.
+
+#### Automatic Cloud Configuration Management
+CloudStack automatically configures the network and storage settings for each virtual machine deployment. Internally, a pool of virtual appliances support the operation of configuration of the cloud itself. These appliances offer services such as firewalling, routing, DHCP, VPN, console proxy, storage access, and storage replication. The extensive use of horizontally scalable virtual machines simplifies the installation and ongoing operation of a cloud.
+
+#### Graphical User Interface
+CloudStack offers an administrators web interface used for provisioning and managing the cloud, as well as an end-user’s Web interface, used for running VMs and managing VM templates. The UI can be customized to reflect the desired service provider or enterprise look and feel.
+
+#### API
+CloudStack provides a REST-like API for the operation, management and use of the cloud.
+
+#### `AWS EC2 API` Support
+CloudStack provides an `EC2 API` translation layer to permit the common EC2 tools to be used in the use of a CloudStack cloud.  
+
+> Amazon EC2 : Amazon Elastic Compute Cloud ([see](https://aws.amazon.com/ec2/))
+
+#### High Availability
+CloudStack has a number of features to increase the availability of the system. The Management Server itself may be deployed in a multi-node installation where the servers are load balanced. MySQL may be configured to use replication to provide for failover in the event of database loss. For the hosts, CloudStack supports NIC bonding and the use of separate networks for storage as well as iSCSI Multipath.
