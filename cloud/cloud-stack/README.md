@@ -57,13 +57,13 @@ CloudStack provides a `REST`-like API for the operation, management and use of t
 > REST : Representational State Transfer
 
 
-#### `AWS EC2 API` Support
+#### AWS EC2 API Support
 CloudStack provides an `EC2 API` translation layer to permit the common EC2 tools to be used in the use of a CloudStack cloud.  
 
 > Amazon EC2 : Amazon Elastic Compute Cloud ([see](https://aws.amazon.com/ec2/))
 
 #### High Availability
-CloudStack has a number of features to increase the availability of the system. The Management Server itself may be deployed in a multi-node installation where the servers are load balanced. MySQL may be configured to use replication to provide for failover in the event of database loss. For the hosts, CloudStack supports NIC bonding and the use of separate networks for storage as well as iSCSI Multipath.  
+CloudStack has a number of features to increase the availability of the system. The Management Server itself may be deployed in a multi-node installation where the servers are load balanced. MySQL may be configured to use replication to provide for failover in the event of database loss. For the hosts, CloudStack supports `NIC bonding` and the use of separate networks for storage as well as `iSCSI` Multipath.  
 
 > NIC bonding : 가용 대역폭을 늘리기위해 다수의 NIC를 하나로 묶는 기술. 하나로 묶인 NIC는 동일한 MAC Address를 갖음.  
 > iSCSI :  Internet Small Computer Systems Interface 의 약어.  
